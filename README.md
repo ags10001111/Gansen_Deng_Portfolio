@@ -37,6 +37,7 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 ## Epilepsy-associated death in the Southwestern Ontario
 - 📄 [Paper Link](https://onlinelibrary.wiley.com/doi/full/10.1111/bpa.13121)
 
+**Comparison analysis** ([code](Epilepsy_Study/Comparison.R)) was performed on this dataset. Continuous variables were compared between groups using the **Mann–Whitney U test**, while discrete variables were analyzed using **Fisher's exact test**.
 
 
 ## Longitudinal analysis of mucosa-associated invariant T cells in sepsis study
