@@ -21,3 +21,5 @@ I’m passionate about turning data into actionable knowledge and building model
 - Technical skillset
 
 📄 [View My CV (PDF)](CV_GansenDeng.pdf)
+
+# Table of Contents
