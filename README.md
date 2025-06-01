@@ -41,9 +41,9 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 - 📄 [Paper Link](https://pubmed.ncbi.nlm.nih.gov/36604951/)
 
 
-# PhD Thesis (Statistical Learning Methods for Challenges arised from Self-Reported Data)
+# PhD Thesis 
 
-- 📄 [Thesis Link](https://ir.lib.uwo.ca/etd/10805/)
+- 📄 [Thesis Link](https://ir.lib.uwo.ca/etd/10805/) (Statistical Learning Methods for Challenges arised from Self-Reported Data)
 
 ## Phenotyping Chronic Pain Patients using a Mechanism-Based Framework
 
