@@ -25,7 +25,7 @@ I’m passionate about turning data into actionable knowledge and building model
 # Table of Contents
 
 
-# Portfolio Projects
+# Published Papers
 
 ## A real-time and interactive web-based platform for visualizing and analyzing COVID-19 in Canada
 
@@ -40,6 +40,22 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 ## Longitudinal analysis of mucosa-associated invariant T cells in sepsis
 - 📄 [Paper Link](https://pubmed.ncbi.nlm.nih.gov/36604951/)
 
+
+# PhD Thesis (Statistical Learning Methods for Challenges arised from Self-Reported Data)
+
+- 📄 [Thesis Link](https://ir.lib.uwo.ca/etd/10805/)
+
+## Phenotyping Chronic Pain Patients using a Mechanism-Based Framework
+
+## A Novel Distance Metric for Clustering Questionnaire Data
+
+## Chronic Pain Patient Clustering by Accommodating Self-report Questionnaires and Interpretability
+
+## Semi-supervised Clustering of Self-reported Data using Active Learning
+
+## Clinical Characteristics of Myofascial Trigger Points
+
+## Clinical Prediction of Nociplastic Pain using Combined Criteria
 
 
 
