@@ -37,8 +37,12 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 ## Epilepsy-associated death in the Southwestern Ontario
 - 📄 [Paper Link](https://onlinelibrary.wiley.com/doi/full/10.1111/bpa.13121)
 
+
+
 ## Longitudinal analysis of mucosa-associated invariant T cells in sepsis
 - 📄 [Paper Link](https://pubmed.ncbi.nlm.nih.gov/36604951/)
+- [Poster]
+
 
 
 # PhD Thesis 
@@ -59,6 +63,7 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 
 
 
+# Other Projects
 
 
 
