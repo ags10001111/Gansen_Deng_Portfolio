@@ -47,9 +47,9 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 
 Data on MAIT cells was collected via flow cytometry from blood samples taken across six time points from three cohorts: *septic, non-septic*, and *healthy*. Three types of analyses were conducted:
 
-1. **Comparative analysis**: T-tests and Mann–Whitney U tests were used to identify variables that differed significantly between cohorts.  
-2. **Longitudinal analysis**: Generalized estimating equations (GEE) were applied to assess temporal trends in the variables over time.  
-3. **Correlation analysis**: Logistic regression was used to explore associations between variables, with variable selection performed using the likelihood ratio test.
+1. **Comparative analysis** ([codes](Sepsis_Study/Comparison.R)): T-tests and Mann–Whitney U tests were used to identify variables that differed significantly between cohorts.  
+2. **Longitudinal analysis** ([codes](Sepsis_Study/Longitudinal_analysis.R)): Generalized estimating equations (GEE) were applied to assess significant trends in the variables over time.  
+3. **Correlation analysis** ([codes](Sepsis_Study/Correlation.R)): Logistic regression was used to explore associations between variables, with variable selection performed using the likelihood ratio test.
 
 # PhD Thesis 
 
