@@ -20,4 +20,4 @@ I’m passionate about turning data into actionable knowledge and building model
 - Learning progress and tools
 - Technical skillset
 
-📄 [View My CV (PDF)](link-to-your-cv)
+📄 [View My CV (PDF)](CV_Gansen Deng.pdf)
