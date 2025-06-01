@@ -41,7 +41,7 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 
 ## Longitudinal analysis of mucosa-associated invariant T cells in sepsis
 - 📄 [Paper Link](https://pubmed.ncbi.nlm.nih.gov/36604951/)
-- [Poster]
+- [Poster](Sepsis_Study/Sepsis_Poster.pdf)
 
 
 
