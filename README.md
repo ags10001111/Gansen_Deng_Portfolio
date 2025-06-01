@@ -43,6 +43,7 @@ This website was developed during the COVID-19 pandemic to monitor real-time cha
 - 📄 [Paper Link](https://pubmed.ncbi.nlm.nih.gov/36604951/)
 - 🖼️ [Poster](Sepsis_Study/Sepsis_Poster.pdf)
 
+![Sepsis Poster](Sepsis_Study/Sepsis_Poster.jpg)
 
 
 # PhD Thesis 
