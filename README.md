@@ -32,7 +32,7 @@ I’m passionate about turning data into actionable knowledge and building model
 - 🌐 [Website Link](https://covid-19-canada.uwo.ca/)
 - 📄 [Paper Link](https://www.ccsenet.org/journal/index.php/ijsp/article/view/0/43346)
 
-This website was developed during the COVID-19 pandemic to monitor real-time changes in the spread of the virus across Canada. It was created by our research group, the GW Data Science Research Group (GW-DSRG). My primary responsibility was to design and implement the real-time data visualizations for the provinces of [Ontario](https://covid-19-canada.uwo.ca/en/ontario.html) and [Alberta](https://covid-19-canada.uwo.ca/en/alberta.html). The data visulization plots were created using the R package **plotly**.
+This website was developed during the COVID-19 pandemic to monitor real-time changes in the spread of the virus across Canada. It was created by our research group, the GW Data Science Research Group (GW-DSRG). My primary responsibility was to design and implement the real-time data visualizations for the provinces of [Ontario](https://covid-19-canada.uwo.ca/en/ontario.html) and [Alberta](https://covid-19-canada.uwo.ca/en/alberta.html). The data visulization plots were created using the R package **plotly** ([codes](COVID19_Website/IR_ON.R))
 
 
 
