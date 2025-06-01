@@ -29,8 +29,8 @@ I’m passionate about turning data into actionable knowledge and building model
 
 ## A real-time and interactive web-based platform for visualizing and analyzing COVID-19 in Canada.
 
-- Website: https://covid-19-canada.uwo.ca/
-- Paper: https://www.ccsenet.org/journal/index.php/ijsp/article/view/0/43346
+- 🌐 [Website Link](https://covid-19-canada.uwo.ca/)
+- 📄 [Paper Link](https://www.ccsenet.org/journal/index.php/ijsp/article/view/0/43346)
 
 This is a website created during the COVID-19 pandemic period, which was designed to monitor the real-time changes of COVID-19 in Canada.
 
