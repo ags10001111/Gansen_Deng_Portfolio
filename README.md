@@ -115,7 +115,7 @@ The proposed distance achieves the highest ARI compared to all other distance me
 - **ICOT Results:**
 
 <p align="center">
-  <img src="Interpretable_Clustering/ICOT_Result.png" alt="ARI_Normal" width="800">
+  <img src="Interpretable_Clustering/ICOT_Result.png" alt="ICOT_Result" width="800">
 </p>
 
 ## Semi-supervised Clustering of Self-reported Data using Active Learning
@@ -128,15 +128,41 @@ The proposed distance achieves the highest ARI compared to all other distance me
 - **Methods:**
   - The canonical correlation analysis (CCA) is used to investigate the relationships among the three sets of variables ([codes](TriggerPoint/TPDA.R))
 
+- **Results:**
+  - The following two plots show the weights of variables for the first pair of canonical variates
+ 
+  - 
+  - The correlation coefficient for the first pair of canonical variates is 0.421, suggesting a moderate negative correlation between the Michigan Body Map and PPT
+ 
+
 ## Clinical Prediction of Nociplastic Pain using Combined Criteria
 
 - **Objective:**
-  - Assess the predictive ability of collected variables for diagnosing nociplastic pain  
+  - Assess the predictive ability of Michigan Pain Diagram (MPD), Central Sensitization Inventory (CSI), and Pain-Pressure Thresholds (PPT) for diagnosing nociplastic pain
   - Identify optimal threshold values for those variables to establish simple diagnostic rules
- 
-- **Methods:** ([codes](Nociplastic_Prediction/Nocioplastic_Prediction.py))
+
+- **EDA and Data Pre-processing:** ([codes](Nociplastic_Prediction/Scatter_Matrix.ipynb))
+
+Apply logarithmic transformations to the right-skewed predictors to reduce the influence of extreme values and improve symmetry.
+
+<p align="center">
+  <img src="Nociplastic_Prediction/scatter_matrix_py.png" alt="scatter_plot" width="500" style="margin-right: 10px;">
+  <img src="Nociplastic_Prediction/scatter_matrix_transformed_py.png" alt="scatter_plot_transformed" width="500">
+</p>
+
+- **Methods:** ([codes](Nociplastic_Prediction/Nocioplastic_Prediction.R))
   - Three prediction models are considered: logistic regression, random forest (RF), and support vector machine (SVM). The data is randomly split into 70% for training and 30% for testing. This train/test split is repeated 100 times, and the models are evaluated based on the mean prediction accuracy on the test data
   - Use the best prediction model to determine the optimal cutoff for each predictor that yields the highest mean prediction accuracy
+
+- **Results:**
+  - In the SVM model, the Central Sensitization Inventory (CSI) accounts for 73.9% of the predictive power, while the Maximum Pain Duration (MPD) contributes 26.1%
+  - Prediction accuracy is primarily driven by variations in the CSI cutoff, whereas changes to the MPD cutoff have a relatively minor impact
+  - The optimal CSI threshold lies between 40 and 48. We recommend using two cutoffs—40 and 48—to classify patients into three distinct groups
+
+<p align="center">
+  <img src="Nociplastic_Prediction/SVM_DB.png" alt="SVM" width="500" style="margin-right: 10px;">
+  <img src="Nociplastic_Prediction/Accuracy_2d.png" alt="acc_2d" width="500">
+</p>
 
 # Other Projects
 
