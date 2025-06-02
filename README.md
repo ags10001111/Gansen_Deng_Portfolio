@@ -129,6 +129,9 @@ The proposed distance achieves the highest ARI compared to all other distance me
  
 - **Selected Simulation Results:**
   
+<p align="center">
+  <img src="Semi_Supervised_Clustering/Method_Comp.png" alt="Method_Comp" width="800">
+</p>
 
 ## Clinical Characteristics of Myofascial Trigger Points
 - **Objective:**
