@@ -55,8 +55,18 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
 # PhD Thesis 
 
 - 📄 [Thesis Link](https://ir.lib.uwo.ca/etd/10805/) (Statistical Learning Methods for Challenges arised from Self-Reported Data)
+- Goal: Develop data-driven methods to assist clinicians in managing chronic pain
 
 ## Phenotyping Chronic Pain Patients using a Mechanism-Based Framework
+- **Objective:**
+  - Cluster patients into phenotypes using the routinely clinically collected variables
+  - Check the ability of these variables to differentiate the phenotypes & mechanism-based classification (*non-nociplastic, nociplastic, mixed*)
+
+- **Methods:**
+  - The **latent class analysis (LCA)** is applied to cluster CP data with 13 variables and 198 patients
+  - The optimal number of clusters in LCA is determined using **Bayes' information criteria (BIC)**
+  - The **chi-square independence test** is used to check whether the features are significantly different across clusters
+  - The feature importance is checked using **random forest** models by treating the clustering labels/mechanism-based classification as the responses. The **permutation importance** is used to quantify the importance of each feature
 
 ## A Novel Distance Metric for Clustering Questionnaire Data
 
@@ -65,10 +75,22 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
 ## Semi-supervised Clustering of Self-reported Data using Active Learning
 
 ## Clinical Characteristics of Myofascial Trigger Points
+- **Objective:**
+  - Identify key MTrP characteristics crucial for clinical diagnosis and research  
+  - Investigate the correlations among MTrPs, pain-pressure thresholds (PPT), and Michigan Body Map
+
+- **Methods:**
+  - The canonical correlation analysis (CCA) is used to investigate the relationships among the three sets of variables
 
 ## Clinical Prediction of Nociplastic Pain using Combined Criteria
 
-
+- **Objective:**
+  - Assess the predictive ability of collected variables for diagnosing nociplastic pain  
+  - Identify optimal threshold values for those variables to establish simple diagnostic rules
+ 
+- **Methods:**
+  - Three prediction models are considered: logistic regression, random forest (RF), and support vector machine (SVM). The data is randomly split into 70% for training and 30% for testing. This train/test split is repeated 100 times, and the models are evaluated based on the mean prediction accuracy on the test data
+  - Use the best prediction model to determine the optimal cutoff for each predictor that yields the highest mean prediction accuracy
 
 # Other Projects
 
