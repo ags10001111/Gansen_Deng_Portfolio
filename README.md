@@ -103,14 +103,14 @@ The proposed distance achieves the highest ARI compared to all other distance me
 
 ## Chronic Pain Patient Clustering by Accommodating Self-report Questionnaires and Interpretability
 - **Objective:**
-  - Cluster the CP patients based on the proposed questionnaire distance to capture the unique characteristics of the self-reported (SR) variables.
-  - Make clustering results more interpretable.
+  - Cluster the CP patients based on the proposed questionnaire distance to capture the unique characteristics of the self-reported (SR) variables
+  - Make clustering results more interpretable
 
 - **Methods:**
-  - Hierarchical clustering (HC) is employed with complete linkage, and the optimal number of clusters is determined by maximizing the Silhouette score.
-  - Interpretable Clustering via Optimal Trees (ICOT) [Bertsimas et al., 2021](https://link.springer.com/article/10.1007/S10994-020-05896-2) is applied to generate an interpretable clustering result with a tree structure.
-  - The cluster center is computed for each cluster to represent its characteristics.
-  - Feature importance from the random forest model is used to evaluate the importance of each feature.
+  - Hierarchical clustering (HC) is employed with complete linkage, and the optimal number of clusters is determined by maximizing the Silhouette score
+  - Interpretable Clustering via Optimal Trees (ICOT) [Bertsimas et al., 2021](https://link.springer.com/article/10.1007/S10994-020-05896-2) is applied to generate an interpretable clustering result with a tree structure
+  - The cluster center is computed for each cluster to represent its characteristics
+  - Feature importance from the random forest model is used to evaluate the importance of each feature
 
 ## Semi-supervised Clustering of Self-reported Data using Active Learning
 
