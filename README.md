@@ -88,13 +88,14 @@ The distance between two subjects $x_i$ and $x_j$ is proposed as:
 </p>
 
 where:
-  * $\delta_{\text{cat}}(x_{ik}, x_{jk})$ is a co-occurrence-based distance for categorical variables.
-  * $w_t$ is the standard deviation of the lower triangular elements of the correlation distance matrix for the $t$-th group of self-reported (SR) variables, where the correlation distance is defined as $\sin\left( \frac{\arccos(r_{ij,t})}{2} \right)$
+- $\delta_{\text{cat}}(x_{ik}, x_{jk})$ is a co-occurrence-based distance for categorical variables.
+- $w_t$ is the standard deviation of the lower triangular elements of the correlation distance matrix for the $t$-th group of self-reported (SR) variables, where the correlation distance is defined as $\sin\left( \frac{\arccos(r_{ij,t})}{2} \right)$
 
+---
 
 - **Selected Simulation Results:**
 <p align="center">
-  <img src="Novel_Distance/ARI_Normal.png" alt="Notation Table">
+  <img src="Novel_Distance/ARI_Normal.png" alt="ARI_Normal" width="800">
 </p>
 
 ## Chronic Pain Patient Clustering by Accommodating Self-report Questionnaires and Interpretability
