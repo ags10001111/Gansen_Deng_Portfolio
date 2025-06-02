@@ -54,8 +54,8 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
 
 # PhD Thesis 
 
-- 📄 [Thesis Link](https://ir.lib.uwo.ca/etd/10805/) (Statistical Learning Methods for Challenges arised from Self-Reported Data)
-- Goal: Develop data-driven methods to assist clinicians in managing chronic pain
+- 📄 [Thesis Link](https://ir.lib.uwo.ca/etd/10805/) (Statistical Learning Methods for Challenges arised from Self-Reported Data, with Applications to Chronic Pain Studies)
+- 🎯 **Goal:** Develop data-driven methods to assist clinicians in managing chronic pain
 
 ## Phenotyping Chronic Pain Patients using a Mechanism-Based Framework
 - **Objective:**
