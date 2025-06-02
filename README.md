@@ -79,7 +79,7 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
   <img src="Novel_Distance/Notation.png" alt="Notation Table">
 </p>
 
-- **The Proposed Distance:**
+- **The Proposed Distance:** ([codes](Novel_Distance/Distance_Definition.R))
 
 The distance between two subjects $x_i$ and $x_j$ is proposed as:
 
@@ -93,7 +93,7 @@ where:
 
 ---
 
-- **Selected Simulation Results:**
+- **Selected Simulation Results:** ([codes](Novel_Distance/Simulation_Study.R))
 <p align="center">
   <img src="Novel_Distance/ARI_Normal.png" alt="ARI_Normal" width="800">
 </p>
