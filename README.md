@@ -108,9 +108,15 @@ The proposed distance achieves the highest ARI compared to all other distance me
 
 - **Methods:**
   - Hierarchical clustering (HC) is employed with complete linkage, and the optimal number of clusters is determined by maximizing the Silhouette score
-  - Interpretable Clustering via Optimal Trees (ICOT) [Bertsimas et al., 2021](https://link.springer.com/article/10.1007/S10994-020-05896-2) is applied to generate an interpretable clustering result with a tree structure
+  - Interpretable Clustering via Optimal Trees (ICOT) [Bertsimas et al., 2021](https://link.springer.com/article/10.1007/S10994-020-05896-2) is applied to generate an interpretable clustering result with a tree structure ([codes](Interpretable_Clustering/icot.py))
   - The cluster center is computed for each cluster to represent its characteristics
   - Feature importance from the random forest model is used to evaluate the importance of each feature
+
+- **ICOT Results:**
+
+<p align="center">
+  <img src="Interpretable_Clustering/ICOT_Result.png" alt="ARI_Normal" width="800">
+</p>
 
 ## Semi-supervised Clustering of Self-reported Data using Active Learning
 
