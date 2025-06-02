@@ -128,7 +128,9 @@ The proposed distance achieves the highest ARI compared to all other distance me
   - A two-step batch active learning framework was proposed to select multiple subject pairs to query at one time ([Step 1](Semi_Supervised_Clustering/Active_Query_Step1.py); [Step 2](Semi_Supervised_Clustering/Active_Query_Step2.py))
  
 - **Selected Simulation Results:** ([codes](Semi_Supervised_Clustering/Simulate_Data.py))
-  
+
+The two proposed methods outperform the other four methods in most scenarios, especially when the proportion of SR variables is high.
+
 <p align="center">
   <img src="Semi_Supervised_Clustering/Method_Comp.png" alt="Method_Comp" width="800">
 </p>
