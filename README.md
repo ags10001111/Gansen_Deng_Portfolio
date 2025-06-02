@@ -75,31 +75,25 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
 
 - **Notation:**
 
-| **Notation** | **Description** |
-|--------------|-----------------|
-| $\mathbf{X} = (\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_p)$ | The data matrix containing $n$ subjects and $p$ variables |
-| $\mathbf{X}_k = (x_{1k}, x_{2k}, \dots, x_{nk})^T$ | Responses of all subjects on the $k$-th variable |
-| $R_k$ | $\max\{\mathbf{X}_k\} - \min\{\mathbf{X}_k\}$ |
-| $\mathbf{x}_i = (x_{i1}, x_{i2}, \dots, x_{ip})$ | Responses from the $i$-th subject |
-| $\mathbf{X}_{\text{con}} = (\mathbf{X}_1, \dots, \mathbf{X}_{m_1})$ | $m_1$ continuous variables (not SR) |
-| $\mathbf{X}_{\text{sr}} = (\mathbf{X}_{m_1+1}, \dots, \mathbf{X}_{m_1 + m_2})$ | $m_2$ SR continuous variables |
-| $\mathbf{X}_{\text{cat}} = (\mathbf{X}_{m_1 + m_2 + 1}, \dots, \mathbf{X}_{p})$ | $p - (m_1 + m_2)$ categorical variables |
-| $\mathbf{X}_{\text{sr}_1}, \dots, \mathbf{X}_{\text{sr}_s}$ | Groups of SR variables, each with at least two variables |
-| $\mathbf{X}_{i, \text{sr}_t}$ | The $t$-th group of SR variables of the $i$-th subject |
-| $r_{ij,t}$ | $\operatorname{corr}(\mathbf{X}_{i, \text{sr}_t}, \mathbf{X}_{j, \text{sr}_t})$ |
-
+<p align="center">
+  <img src="Novel_Distance/Notation.png" alt="Notation Table">
+</p>
 
 - **The Proposed Distance:**
 
 The distance between two subjects $x_i$ and $x_j$ is proposed as:
 
-![Equation](https://latex.codecogs.com/svg.image?\dpi{150}&space;\color{White}d(\mathbf{x}_i,&space;\mathbf{x}_j)&space;=&space;\frac{1}{p&space;&plus;&space;s}&space;\left(&space;\sum_{k=1}^{m_1&space;&plus;&space;m_2}&space;\frac{|x_{ik}&space;-&space;x_{jk}|}{R_k}&space;&plus;&space;\sum_{t=1}^{s}&space;w_t&space;\sin&space;\left(\frac{\arccos(r_{ij,t})}{2}&space;\right)&space;&plus;&space;\sum_{k&space;=&space;m_1&space;&plus;&space;m_2&space;&plus;&space;1}^{p}&space;\delta_{\text{cat}}(x_{ik},&space;x_{jk})&space;\right))
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?\dpi{150}&space;\color{White}d(\mathbf{x}_i,&space;\mathbf{x}_j)&space;=&space;\frac{1}{p&space;&plus;&space;s}&space;\left(&space;\sum_{k=1}^{m_1&space;&plus;&space;m_2}&space;\frac{|x_{ik}&space;-&space;x_{jk}|}{R_k}&space;&plus;&space;\sum_{t=1}^{s}&space;w_t&space;\sin&space;\left(\frac{\arccos(r_{ij,t})}{2}&space;\right)&space;&plus;&space;\sum_{k&space;=&space;m_1&space;&plus;&space;m_2&space;&plus;&space;1}^{p}&space;\delta_{\text{cat}}(x_{ik},&space;x_{jk})&space;\right)" alt="Equation">
+</p>
+
 
 where:
 
 - $\delta_{\text{cat}}(x_{ik}, x_{jk})$ is a co-occurrence-based distance for categorical variables.
 - $w_t$ is the standard deviation of the lower triangular elements of the correlation distance matrix for the $t$-th group of self-reported (SR) variables, where the correlation distance is defined as $\sin\left( \frac{\arccos(r_{ij,t})}{2} \right)$.
 
+- **Selected Simulation Results:**
   
 
 ## Chronic Pain Patient Clustering by Accommodating Self-report Questionnaires and Interpretability
