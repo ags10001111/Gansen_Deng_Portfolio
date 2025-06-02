@@ -183,6 +183,10 @@ Apply logarithmic transformations to the right-skewed predictors to reduce the i
 
 # Other Projects
 
+## Predict default rate using deep learning
+
+##
+
 
 
 
