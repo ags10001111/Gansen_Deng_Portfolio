@@ -119,6 +119,16 @@ The proposed distance achieves the highest ARI compared to all other distance me
 </p>
 
 ## Semi-supervised Clustering of Self-reported Data using Active Learning
+- **Objective:**
+  - Incorporate experts' domain knowledge into the clustering process to guide it toward better clustering results
+  - Develop an active learning strategy to select the most informative subject pairs to query
+
+- **Methods:**
+  - Use the Metric Pairwise Constrained K-means (MPCK-means) framework [Basu et al., 2004](https://www.cs.utexas.edu/~ml/papers/semi-icml-wkshp-03.pdf) to incoportate the pairwise constraints (if two subjects should belong to the same cluster or not) into the clustering process
+  - A two-step batch active learning framework was proposed to select multiple subject pairs to query at one time
+ 
+- **Selected Simulation Results:**
+  
 
 ## Clinical Characteristics of Myofascial Trigger Points
 - **Objective:**
@@ -129,11 +139,13 @@ The proposed distance achieves the highest ARI compared to all other distance me
   - The canonical correlation analysis (CCA) is used to investigate the relationships among the three sets of variables ([codes](TriggerPoint/TPDA.R))
 
 - **Results:**
-  - The following two plots show the weights of variables for the first pair of canonical variates
- 
-  - 
-  - The correlation coefficient for the first pair of canonical variates is 0.421, suggesting a moderate negative correlation between the Michigan Body Map and PPT
- 
+  - The correlation coefficient between the first pair of canonical variates is 0.421, suggesting a moderate negative correlation between the Michigan Body Map and PPT 
+  - The following two plots show the weights of variables for the first pair of canonical variates:
+
+ <p align="center">
+  <img src="TriggerPoint/Ch6_F7.png" alt="Ch6_F7" width="500" style="margin-right: 10px;">
+  <img src="TriggerPoint/Ch6_F8.png" alt="Ch6_F8" width="500">
+</p> 
 
 ## Clinical Prediction of Nociplastic Pain using Combined Criteria
 
