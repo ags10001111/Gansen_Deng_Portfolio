@@ -1,4 +1,4 @@
-source("Distance_Definition_1.R")
+source("Distance_Definition.R")
 library(MASS)
 library(kamila)
 library(mixdist)
