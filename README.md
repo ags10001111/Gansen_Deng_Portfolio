@@ -88,17 +88,29 @@ The distance between two subjects $x_i$ and $x_j$ is proposed as:
 </p>
 
 where:
-- $\delta_{\text{cat}}(x_{ik}, x_{jk})$ is a co-occurrence-based distance for categorical variables.
+- $\delta_{\text{cat}}(x_{ik}, x_{jk})$ is a co-occurrence-based distance [Ahmad and Dey, 2007](https://www.sciencedirect.com/science/article/abs/pii/S0169023X0700050X) for categorical variables.
 - $w_t$ is the standard deviation of the lower triangular elements of the correlation distance matrix for the $t$-th group of self-reported (SR) variables, where the correlation distance is defined as $\sin\left( \frac{\arccos(r_{ij,t})}{2} \right)$
 
 ---
 
 - **Selected Simulation Results:** ([codes](Novel_Distance/Simulation_Study.R))
+
+The proposed distance achieves the highest ARI compared to all other distance metrics across all scenarios.
+
 <p align="center">
   <img src="Novel_Distance/ARI_Normal.png" alt="ARI_Normal" width="800">
 </p>
 
 ## Chronic Pain Patient Clustering by Accommodating Self-report Questionnaires and Interpretability
+- **Objective:**
+  - Cluster the CP patients based on the proposed questionnaire distance to capture the unique characteristics of the self-reported (SR) variables.
+  - Make clustering results more interpretable.
+
+- **Methods:**
+  - Hierarchical clustering (HC) is employed with complete linkage, and the optimal number of clusters is determined by maximizing the Silhouette score.
+  - Interpretable Clustering via Optimal Trees (ICOT) [Bertsimas et al., 2021](https://link.springer.com/article/10.1007/S10994-020-05896-2) is applied to generate an interpretable clustering result with a tree structure.
+  - The cluster center is computed for each cluster to represent its characteristics.
+  - Feature importance from the random forest model is used to evaluate the importance of each feature.
 
 ## Semi-supervised Clustering of Self-reported Data using Active Learning
 
