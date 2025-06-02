@@ -123,7 +123,7 @@ The proposed distance achieves the highest ARI compared to all other distance me
 ## Clinical Characteristics of Myofascial Trigger Points
 - **Objective:**
   - Identify key MTrP characteristics crucial for clinical diagnosis and research  
-  - Investigate the correlations among MTrPs, pain-pressure thresholds (PPT), and Michigan Body Map
+  - Investigate the correlations among MTrPs, pain-pressure thresholds (PPT), and the Michigan Body Map
 
 - **Methods:**
   - The canonical correlation analysis (CCA) is used to investigate the relationships among the three sets of variables
