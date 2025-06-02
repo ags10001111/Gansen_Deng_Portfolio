@@ -124,10 +124,10 @@ The proposed distance achieves the highest ARI compared to all other distance me
   - Develop an active learning strategy to select the most informative subject pairs to query
 
 - **Methods:**
-  - Use the Metric Pairwise Constrained K-means (MPCK-means) framework [Basu et al., 2004](https://www.cs.utexas.edu/~ml/papers/semi-icml-wkshp-03.pdf) to incoportate the pairwise constraints (if two subjects should belong to the same cluster or not) into the clustering process
-  - A two-step batch active learning framework was proposed to select multiple subject pairs to query at one time
+  - Use the Metric Pairwise Constrained K-means (MPCK-means) framework [Basu et al., 2004](https://www.cs.utexas.edu/~ml/papers/semi-icml-wkshp-03.pdf) to incorporate the pairwise constraints (if two subjects should belong to the same cluster or not) into the clustering process ([codes](Semi_Supervised_Clustering/MPCKmeans_SR_notabs.py))
+  - A two-step batch active learning framework was proposed to select multiple subject pairs to query at one time ([Step 1](Semi_Supervised_Clustering/Active_Query_Step1.py); [Step 2](Semi_Supervised_Clustering/Active_Query_Step2.py))
  
-- **Selected Simulation Results:**
+- **Selected Simulation Results:** ([codes](Semi_Supervised_Clustering/Simulate_Data.py))
   
 <p align="center">
   <img src="Semi_Supervised_Clustering/Method_Comp.png" alt="Method_Comp" width="800">
