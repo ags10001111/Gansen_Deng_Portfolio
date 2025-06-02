@@ -126,7 +126,7 @@ The proposed distance achieves the highest ARI compared to all other distance me
   - Investigate the correlations among MTrPs, pain-pressure thresholds (PPT), and the Michigan Body Map
 
 - **Methods:**
-  - The canonical correlation analysis (CCA) is used to investigate the relationships among the three sets of variables
+  - The canonical correlation analysis (CCA) is used to investigate the relationships among the three sets of variables ([codes](TriggerPoint/TPDA.R))
 
 ## Clinical Prediction of Nociplastic Pain using Combined Criteria
 
