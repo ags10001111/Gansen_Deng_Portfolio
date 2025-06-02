@@ -34,7 +34,7 @@ I’m passionate about turning data into actionable knowledge and building model
 
 This website was developed during the COVID-19 pandemic to monitor real-time changes in the spread of the virus across Canada. It was created by our research group, the GW Data Science Research Group (GW-DSRG). My primary responsibility was to design and implement the real-time data visualizations for the provinces of [Ontario](https://covid-19-canada.uwo.ca/en/ontario.html) ([codes](COVID19_Website/IR_ON.R)) and [Alberta](https://covid-19-canada.uwo.ca/en/alberta.html) ([codes](COVID19_Website/IR_AL.R)). The interactive plots were built using the R package **plotly**.
 
-## Epilepsy-associated death in the Southwestern Ontario (2023)
+## Epilepsy-associated death in Southwestern Ontario (2023)
 - 📄 [Paper Link](https://onlinelibrary.wiley.com/doi/full/10.1111/bpa.13121)
 
 **Comparison analysis** ([codes](Epilepsy_Study/Comparison.R)) was performed on this dataset. Continuous variables were compared between groups using the **Mann–Whitney U test**, while discrete variables were analyzed using **Fisher's exact test**. **Logistic regression** ([codes](Epilepsy_Study/GLM.R)) was also used to model the cause of death, with **LASSO regularization** applied for variable selection.
@@ -63,12 +63,32 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
   - Check the ability of these variables to differentiate the phenotypes & mechanism-based classification (*non-nociplastic, nociplastic, mixed*)
 
 - **Methods:**
-  - The **latent class analysis (LCA)** is applied to cluster CP data with 13 variables and 198 patients
+  - The **latent class analysis (LCA)** ([codes](Phenotyping_CP_Patients/LCA.R)) is applied to cluster CP data with 13 variables and 198 patients
   - The optimal number of clusters in LCA is determined using **Bayes' information criteria (BIC)**
   - The **chi-square independence test** is used to check whether the features are significantly different across clusters
   - The feature importance is checked using **random forest** models by treating the clustering labels/mechanism-based classification as the responses. The **permutation importance** is used to quantify the importance of each feature
 
 ## A Novel Distance Metric for Clustering Questionnaire Data
+- **Objective:**
+  - Develop a distance metric tailored for mixed-type data comprising both continuous and categorical variables
+  - Design a metric that incorporates the unique characteristics (the rating criteria vary between individuals but remain consistent within each individual) of questionnaire-based data to mitigate subjective bias and more accurately capture similarity between subjects
+
+- **The Proposed Distance:**
+
+$$
+d(\mathbf{x}_i, \mathbf{x}_j) = \frac{1}{p + s} \left(  
+\sum_{k=1}^{m_1 + m_2} \frac{|x_{ik} - x_{jk}|}{R_k} 
++ \sum_{t=1}^{s} w_t \sin \left(\frac{\arccos(r_{ij,t})}{2} \right) 
++ \sum_{k = m_1 + m_2 + 1}^{p} \delta_{\text{cat}}(x_{ik}, x_{jk})  
+\right)
+$$
+
+where:
+
+- $\delta_{\text{cat}}(x_{ik}, x_{jk})$ is a co-occurrence-based distance for categorical variables.
+- $w_t$ is the standard deviation of the lower triangular elements of the correlation distance matrix for the $t$-th group of self-reported (SR) variables, where the correlation distance is defined as $\sin\left( \frac{\arccos(r_{ij,t})}{2} \right)$.
+
+  
 
 ## Chronic Pain Patient Clustering by Accommodating Self-report Questionnaires and Interpretability
 
