@@ -84,7 +84,7 @@ Data on MAIT cells was collected via flow cytometry from blood samples taken acr
 The distance between two subjects $x_i$ and $x_j$ is proposed as:
 
 <p align="center">
-  <img src="https://latex.codecogs.com/svg.image?\dpi{150}&space;\color{White}d(\mathbf{x}_i,&space;\mathbf{x}_j)&space;=&space;\frac{1}{p&space;&plus;&space;s}&space;\left(&space;\sum_{k=1}^{m_1&space;&plus;&space;m_2}&space;\frac{|x_{ik}&space;-&space;x_{jk}|}{R_k}&space;&plus;&space;\sum_{t=1}^{s}&space;w_t&space;\sin&space;\left(\frac{\arccos(r_{ij,t})}{2}&space;\right)&space;&plus;&space;\sum_{k&space;=&space;m_1&space;&plus;&space;m_2&space;&plus;&space;1}^{p}&space;\delta_{\text{cat}}(x_{ik},&space;x_{jk})&space;\right)" alt="Equation">
+  <img src="https://latex.codecogs.com/svg.image?\dpi{150}&space;\color{Black}d(\mathbf{x}_i,&space;\mathbf{x}_j)&space;=&space;\frac{1}{p&space;&plus;&space;s}&space;\left(&space;\sum_{k=1}^{m_1&space;&plus;&space;m_2}&space;\frac{|x_{ik}&space;-&space;x_{jk}|}{R_k}&space;&plus;&space;\sum_{t=1}^{s}&space;w_t&space;\sin&space;\left(\frac{\arccos(r_{ij,t})}{2}&space;\right)&space;&plus;&space;\sum_{k&space;=&space;m_1&space;&plus;&space;m_2&space;&plus;&space;1}^{p}&space;\delta_{\text{cat}}(x_{ik},&space;x_{jk})&space;\right)" alt="Equation">
 </p>
 
 where:
