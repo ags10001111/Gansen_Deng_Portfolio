@@ -134,7 +134,7 @@ The proposed distance achieves the highest ARI compared to all other distance me
   - Assess the predictive ability of collected variables for diagnosing nociplastic pain  
   - Identify optimal threshold values for those variables to establish simple diagnostic rules
  
-- **Methods:**
+- **Methods:** ([codes](Nociplastic_Prediction/Nocioplastic_Prediction.py))
   - Three prediction models are considered: logistic regression, random forest (RF), and support vector machine (SVM). The data is randomly split into 70% for training and 30% for testing. This train/test split is repeated 100 times, and the models are evaluated based on the mean prediction accuracy on the test data
   - Use the best prediction model to determine the optimal cutoff for each predictor that yields the highest mean prediction accuracy
 
