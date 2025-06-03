@@ -1,0 +1,478 @@
+---
+title: "SS9864 Final Project"
+author: "Gansen Deng, Chufan Wu"
+date: \today
+output: 
+    pdf_document:
+      number_sections : true
+bibliography: 9864_reference.bib
+csl: 111.csl
+header-includes:
+ \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = T)
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.pos = 'H', fig.height = 3)
+library(tibble)
+library(xtable)
+library(tidyverse)
+library(e1071)
+library(randomForest)
+library(varImp)
+library(caret)
+library(pROC)
+library(corrplot)
+library(rpart)
+library(rattle)
+options(tibble.comment = FALSE)
+options(xtable.comment = FALSE)
+```
+
+```{r}
+load("9864_FP.RData")
+```
+
+# Introduction
+## Data description
+Chronic kidney disease, also called chronic kidney failure, describes the gradual loss of kidney function. In our body, kidneys filter wastes and excess fluids from blood, which are then excreted in the urine. But when chronic kidney disease reaches an advanced stage, dangerous levels of fluid, electrolytes and wastes can build up in our body[@national_kidney_foundation_2019]. Therefore, it is important to control the chronic kidney disease before it reaches a dangerous level.
+
+However, in the early stages of chronic kidney disease, we may have few signs or symptoms. Chronic kidney disease may not become apparent until our kidney function is significantly impaired. Therefore, detection and diagnosis of kidney disease in the early stage is very important for preventing the disease progressing to end-stage kidney failure, which is fatal without artificial filtering and kidney transplant.[@national_kidney_foundation_2019]
+
+To detect whether people have chronic kidney disease without apparent symptoms, we need to make use of the information provided by other medical indexes, such as the amount of red blood cells in the body of patients. Based on these explanatory variables, we can build a classification model to predict the probability of a person getting the chronic kidney disease in the early stage. With this purpose, we use the chronic kidney disease data set from the UCI Machine Learning Repository to train our classification models. The data description of our dataset is displayed below:
+
+```{r results='asis', message = FALSE, eval=T, fig.pos='H'}
+print(xtable(df, 
+ caption="Chronic Kidney Disease Data Set Description"),table.placement="H")
+```
+
+## Project objectives
+There are two main purposes of the analysis on this dataset. The first one is to build a chronic kidney disease detector to help hospitals diagnose **ckd** for patients. The other one is to find out which covariate has significant relationship with **ckd** and give patients health advice to protect them from **ckd**.
+
+# Missing values handling
+In the Chronic Kidney Disease dataset, there are a large proportion of observations with missing values. If we do the listwise deletion, then there would only be 39.5% (158/400) observations left. Thus, we think it's not appropriate to simply delete all observations with missing values and it's necessary for us to do some imputation in order to extract more information from the dataset.
+
+## The distribution of NA
+In order to find an appropriate way to deal with missing values, we first plot the distribution of NA in this dataset. The plots are shown below:
+
+```{r, eval = T}
+plot(plot_NA_count)
+plot(plot_NA_dist1)
+plot(plot_NA_dist2)
+```
+
+From the "NA distribution by variables" plot, we can see that the missing values in **rbc**, **rbcc** and **wbcc** are more than 100, which is more than 25%. Besides, from the following two plots we can see that most of the missing values occur in the observations with **class = ckd**. So we think imputing these variables might cause a big bias, especially when we know very few values of them for the observations with **class = ckd**.   
+
+Therefore, we decide to delete those 3 variables and do imputation on other variables.
+
+
+## Missing Data Mechanism
+Before imputing the missing values, we first need to diagnose the missing data mechanism, since different NA handling approaches have different assumptions about the mechanism. The missing data mechanism can be divided into three different classes, which are MCAR(Missing completely at random), MAR(Missing at random), MNAR(Missing not at random)[@grace-martin_2018].
+
+### MCAR diagnosis
+Based on the plots of NA distribution above, we can see that most of the missing values are in the **ckd** class, which means that the missing value is dependent on the response to some extent. Thus, we believe the missing data machinism of this dataset is not MCAR. Alternatively, we can perform the Little's test to check if the mechanism is MCAR[@grace-martin_2018]. The test result is shown below:
+
+```{r, eval = TRUE}
+data.frame(chi.square = little_test$chi.square, df = little_test$df, p.value = little_test$p.value)
+```
+
+From the result we can see that the p-value of the test is 0. Thus, we should reject the null hypothesis that the missing data mechanism is MCAR.    
+
+### MAR diagnosis
+Unfortunately, no statistical test can be used to test if the data is MAR or MNAR. To diagnose if the mechanism is MAR or MNAR, we need to know the information about missing data[@grace-martin_2018], which we have no idea about in this problem. Therefore, we are going to make an assumption that the missing data mechanism in this problem is MAR and then we do data imputation based on this assumption.
+
+## Multiple imputation
+By assuming the missing data mechanism is MAR, we can use multiple imputation to impute the missing data[@jakobsen2017and]. Multiple imputation is an iterative form of stochastic imputation. Instead of filling in a single value, the distribution of the observed data is used to estimate multiple values that reflect the uncertainty around the true value. These values are then used in the analysis of interest and then we combine the results to evaluate the imputed values. Each imputed value includes a random component whose magnitude reflects the extent to which other variables in the imputation model cannot predict it's true values[@idre_stats].    
+
+Therefore, in order to keep the information of the dataset as much as possible, we decide to use multiple imputation to impute our data. The analysis method we use for the imputation is predictive mean matching, which works for both categorical and continuous predictors.    
+
+In R, there are many powerful packages that can be used for multiple imputation and the package we use in this problem is **Hmisc**, which can automatically recognizes the variables types and uses bootstrap sample and predictive mean matching to impute missing values[@analytics_vidhya_content_2019].   
+
+After imputing the data, we can get the $R^2$ values for the last round of imputations as follow. It measures the bias of the imputed data and higher the value, better are the values predicted[@analytics_vidhya_content_2019].
+
+```{r}
+data_imputed$rsq
+```
+
+From the $R^2$ from those variables, we can see that though some variables have a $R^2$ of only about 0.4, most of the variables have a $R^2$ greater than 0.6. So we think it's appropriate to use this imputed data for our further analysis. Although some bias might be introduced inevitably, the bias would be much bigger if we don't do data imputation.
+
+# Exploratory Data Analysis
+## Correlation Table and PCA
+Before building the classification models, we first need to do some exploratory data analysis to examine the relationship between variables in our dataset. Since there are still 9 numeric variables after missing value handling, we decide to plot a correlation table first to check if these variables are highly correlated.   
+
+In the correlation table below, 4 pairs of variables have shown high correlation(>0.5). They are **bu-sc**, **bu-pcv**, **bu-hemo** and **sod-sc**. Considering there exists multicollinearity in this dataset, it occurs to us that we may use principle component analysis to reduce the dimension of our dataset. If the number of principle components are far less than 9(the number of numeric variables), we should replace original variables with principle components in order to decrease computational expenses. However, PCA provides nine principle components, which means it doesn't reduce dimension at all. Therefore, we are still going to build our models using the original variables for better interpretation.
+
+```{r}
+corrplot(res, method = "pie", type = "upper", order = "hclust", tl.col = "black", tl.srt = 45)
+```
+
+## Multiple Correspondence Analysis
+For the other 14 categorical variables, we use multiple correspondence analysis to detect their relationship with the response variable. The plot of MCA is a little messy, but it provides some useful information. In this plot below, each point is labelled with a variable name and its level. It is easy to find that the plot is segregated by two clusters of points and they represents two levels(**ckd**, **notckd**) of the response(**class**) respectively. This means the target variable's levels are distinctly different with each other. Thus, probably we are able to obtain some classification models with good prediction performance.   
+
+<center>
+![MCA plot](PCA.png){width=850 height=330px}
+</center>
+
+## Variable Importance
+Except the PCA and MCA, we also try to make a plot of variable importance by using the random forest model. In the plot below, variables are listed in a descending order in terms of its importance in the random forest model. The top 5 most important variables are **hemo**, **pcv**, **sc**, **al** and **sg**. This result will be helpful for the variable selection when we are building classification models.
+
+```{r,fig.height= 5}
+varimp_plot = varImpPlot(rf,type=2, main = "Variables Importance")
+```
+
+To sum up, through the exploratory data analysis above, we obtain three conclusions as follow:   
+(1) For numeric variables, there is no need to replace them by principle components.      
+(2) The two levels of the response(**ckd**, **notckd**) are distinctly different.   
+(3) The top five most important variables are **hemo**, **pcv**, **sc**, **al** and **sg**.
+
+# Building classification models
+Before fitting models, we first randomly split our dataset into training set(70%) and testing set(30%), where training set is used to train the models and testing set is used to evaluate the models.
+
+## Logistic regression
+Considering that we have a binary response in this dataset, so we first try to fit a logistic regression model with all the covariates. Then we do stepwise regression using AIC to do variable selection. The final model we get is as follow:
+
+```{r}
+summary(AIC_logisitc)
+```
+
+From the summary output, we can see that the residual deviance of this model is $2.8214e-05$ and the corresponding p-value is very close to 1. It means that this model is actually correctly specified. However, if we look at the p-values of those predictors, we can find that none of them show significant relationships with the response. Considering that in logistic regression, including more covariates might decrease the precision of estimated effect[@lachin2009biostatistical], the reason for those large p-values might be that those covariates are highly correlated with each other(i.e. they are the measurements of similar things). Therefore, the significant relationship between some predictors and the target variable is cancelled in the logistic model.   
+
+To verify our guess, we make prediction on the testing set using this model and we get the ROC curve and corresponding AUC value as follow:
+
+```{r}
+plot(roc_logit0, main = "ROC of logistic")
+auc(roc_logit0)
+```
+
+We find that the AUC value for this prediction is 0.9855, which shows that this model has a very good prediction performance on the testing data and it also verifies our guess.
+
+## Logistic regression with single predictor
+Although we have already gotten a pretty good prediction result using the previous model, we cannot see the effect of those covariates clearly with so many covariates in the model, especially for those important covariates. Thus, we fit another logistic regression model with only one predictor, **hemo**, which is also the most important predictor shown in the random forest model. The model we get is shown below:
+
+```{r}
+summary(model_logistic1)
+```
+
+From the model we can see that **hemo** is extremely significant in this new model. Its coefficient is 1.502, which means that the odds of **ckd** would increase $exp(1.502) - 1 = 3.490661$ times when **hemo** increases by one unit.
+
+Similarly, we can also fit a logistic regression model with only **pcv** to get its effect on **ckd** disease.
+
+```{r}
+summary(model_logistic2)
+```
+
+From the summary output of this model, we can see that the relationship between **pcv** and **ckd** is also very significant. Besides, its coefficient is 0.40310, which means that the odds of **ckd** would increase $exp(0.40310) - 1 = 0.4964565$ times when **pcv** increases by one unit.
+
+Furthermore, we also try to make prediction using these two models and the auc values we get are 0.9696 and 0.9427 respectively. Thus, we think these two models are very meaningful, since for hospital with limited resource or patients with limited money, having a test on only one of these two covariates might be good enough to diagnose the chronic kidney disease.
+
+## SVM
+In the end, we also try to apply SVM(Support Vector Machine) on our dataset. We have the ROC curve below showing that the prediction performance of the SVM model is also good, with its auc value reaching 0.931, though it is a little bit worse than the logistic model in terms of auc. We think the reason for that might be that we cannot split the **ckd** patients and **notckd** patients completely using a hyperplane and thus SVM is not so effective in this case.
+
+```{r}
+plot(roc_svm, main = "ROC of SVM")
+auc(roc_svm)
+```
+
+# Application
+## Chronic kidney disease detector
+After fitting models above, we can see that the first logistic regression model has the best prediction performance. Therefore, we decide to build the chronic kidney disease detector using that model.   
+
+So the model we are going to use is a model with covariates **age**, **sg**, **bgr**, **hemo**, **pcv**, **dm** and **appet**, which is the model we get after stepwise logistic regression.    
+
+However, since we can only get a predicted probability from the model, we still need to determine a cutoff to give the prediction result. In order to get the optimum cutoff that maximize prediction accuracy, we use 5-fold cross validation to split the training data into 5 folds. For each validation, we build the model using 4 folds of the data and then make prediction on the other fold to get the prediction accuracy. Then we can get 5 accuracy for every given cutoff and thus we can use the **optimize** function in R to find the cutoff that maximizes the average accuracy.   
+
+After performing above steps, we obtain that the optimum cutoff for this prediction problem is 0.976, which gives an average accuracy of 96.1%. So we try to use this cutoff to make prediction on the testing data and the result we get is as follow:
+
+```{r}
+confusionMatrix(conf_mat_logit0, positive = "1")
+```
+
+From the result, we can see that the detector not only has a good performance in accuracy, but also in sensitivity and specificity. Therefore, we believe it's suitable for hospitals to use this detector to help diagnose the chronic kidney disease for patients.
+
+## Health advice for avoiding chronic kidney disease
+We also want to offer some recommendations to patients in order to help them avoid chronic kidney disease. We also fit a decision tree model to explain the data in a more intuitive way. The decision tree model we get is as follow:
+
+```{r}
+fancyRpartPlot(kidney_tree0, sub = "Decision tree")
+```
+
+From the model we can see that for a patient with **hemo** value less than 13 or **sg** value equal to 1.01 or 1.015, he/she is very likely to have the chronic kidney disease.   
+
+Thus, if a patient want to stay away from chronic kidney disease, he/she had better increase the intake of iron-rich foods to increase the hemoglobin level[@davis_2019]. In addition, a patient is also recommended to go to spa or take some other actions to increase his/her blood specific gravity.
+
+# Summary
+## Conclusion
+Based on the analysis above, we conclude that **hemo** is the most important covariate for **ckd**, the odds of **ckd** would increase 3.490661 times when **hemo** increases by one unit. In addition, to diagnose the chronic kidney disease, it is not essential to measure all covariates in the dataset. Basically, we can get a pretty good diagnostic accuracy if we collect the information of **age**, **sg**, **bgr**, **hemo**, **pcv**, **dm** and **appet**. Actually, even if we only know about **hemo** or **pcv**, we can still obtain a good diagnostic result, since these covariates are highly correlated with each other and they are the measurement of the similar things.
+
+## Further discussion
+In this problem, we utilize the stepwise logistic regression model and cutoff optimization to build a chronic kidney disease detector that has a test accuracy of 96.67%. Although the result is pretty good already, applying a neural network model might be able to improve the performance of the detector. It's not included in this report since building a neural network model is computationally expensive and we don't think it's necessary to increase our prediction accuracy by 1 percent or 2 by using neural network model.    
+
+Additionally, as for dealing with the large proportion of missing values in our original dataset, although multiple imputation is an excellent imputation method that can minimize the bias by adding random components, some bias might still be introduced inevitably. What's more, before performing multiple imputation, we assume that the missing data mechanism of this dataset is MAR, which could also be incorrect. Therefore, the result we get from the models might be deviated from the reality to some extent, and should be applied carefully.
+
+# References
+<div id="refs"></div>
+
+# Appendix
+## Data preprocessing
+
+```{r, echo=TRUE, eval=FALSE}
+# Read the data
+kidney_data = read_csv("Original_data.csv", na = c("", "NA", "?"))
+kidney_data = read_csv("chronic_kidney_disease.csv", na = c("", "NA", "?"))
+as.tibble(kidney_data)
+# make colnames meaningful
+colnames(kidney_data) = gsub("'", "", colnames(kidney_data))
+#----------------------------------------------------------------------
+# Change variables' class
+factor_no = c(3, 4, 5, 6, 7, 8, 9, 19:25) + 1
+factor_name = colnames(kidney_data)[factor_no]
+numeric_name = colnames(kidney_data)[-c(1, factor_no)]
+kidney_data = kidney_data %>% mutate_each_(funs(factor), factor_name) %>% 
+  mutate_each_(funs(as.numeric), numeric_name) 
+
+# Remove column ID
+data1 = kidney_data[, -1]
+
+# Listwise deletion
+data2 = drop_na(data1)
+```
+
+## Missing values handling
+```{r, echo=TRUE, eval=FALSE}
+# Packages that deal with missing data
+library(mice)
+library(VIM)
+
+# Get the distribution of NA
+mice_plot <- aggr(data1, col=c('navyblue','yellow'),
+                    numbers=TRUE, sortVars=TRUE,
+                    labels=names(data1), cex.axis= 0.3,
+                    gap=3, ylab=c("Missing data","Pattern"))
+# Get the count of NA in each variable
+NA_count = arrange(mice_plot$missings, Count)
+
+# Plot the distribution of NA by variable
+plot_NA_count = ggplot(NA_count, aes(x = reorder(Variable, -Count), y = Count)) + 
+  geom_bar(position="dodge", stat="identity") + xlab("Variables") +
+  ylab("NA count") + ggtitle("NA distribution by variables")
+
+# Plot the distribution of NA in dataframe
+NA_dist = as.data.frame(ifelse(is.na(data1), 1, 0))
+colnames(NA_dist) = colnames(data1)
+NA_dist$row = 1:nrow(NA_dist)
+NA_dist1 = NA_dist[1:250, ]
+NA_dist2 = NA_dist[251:400, ]
+
+NA_dist = gather(NA_dist, col, value, -row) %>% 
+  mutate(col = factor(col, levels=colnames(NA_dist)))
+NA_dist1 = gather(NA_dist1, col, value, -row) %>% 
+  mutate(col = factor(col, levels=colnames(NA_dist1)))
+NA_dist2 = gather(NA_dist2, col, value, -row) %>% 
+  mutate(col = factor(col, levels=colnames(NA_dist2)))
+
+plot_NA_dist1 = ggplot(NA_dist1, aes(col, row, fill=factor(value))) +
+  geom_tile(colour="grey50") +
+  scale_fill_manual(values=c("1"="green", "0"="white")) +
+  scale_y_reverse(breaks=1:50, expand=c(0,0)) +
+  scale_x_discrete(position="top") +
+  labs(fill="NA") +
+  theme_classic() + ggtitle("NA distribution of class = 'ckd'")
+
+plot_NA_dist2 = ggplot(NA_dist2, aes(col, row, fill=factor(value))) +
+  geom_tile(colour="grey50") +
+  scale_fill_manual(values=c("1"="green", "0"="white")) +
+  scale_y_reverse(breaks=1:50, expand=c(0,0)) +
+  scale_x_discrete(position="top") +
+  labs(fill="NA") +
+  theme_classic() + ggtitle("NA distribution of class = 'notckd'")
+
+# Drop rbc, rbcc and wbcc
+drop.cols <- c('rbc', 'rbcc', 'wbcc')
+data3 = data1 %>% select(-one_of(drop.cols))
+
+
+# Diagnose the missing data mechanism
+## Check MCAR
+library(BaylorEdPsych)
+little_test = LittleMCAR(as.data.frame(data3))
+
+# Multiple Imputation
+data4 = data3
+al5 = (data4$al == 5)
+al5[is.na(al5)] <- FALSE
+data4[al5,]$al = 4
+data4$al = factor(data4$al)
+
+su5 = (data4$su == 5)
+su5[is.na(su5)] <- FALSE
+data4[su5,]$su = 4
+data4$su = factor(data4$su)
+
+library(Hmisc)
+data_imputed = aregImpute(class ~ age + bp + al + su + pc + sg + pcc + ba + bgr + bu + 
+             sc + sod + pot + hemo + pcv + htn + dm + cad + appet + pe + 
+             ane, 
+                             data = data4, n.impute = 5, type = 'pmm')
+fill_data <- function(impute = data_imputed, data = data4, im = 5) {
+  cbind.data.frame(impute.transcan(x = impute, 
+                                   imputation = im, 
+                                   data = data, 
+                                   list.out = TRUE, 
+                                   pr = FALSE))
+}
+kidney_imputed <- fill_data()
+levels(kidney_imputed$al) = c(levels(kidney_imputed$al), 5)
+levels(kidney_imputed$su) = c(levels(kidney_imputed$su), 5)
+kidney_imputed[al5,]$al = 5
+kidney_imputed[su5,]$su = 5
+
+# The kidney imputed data is the cleaned data
+```
+
+## Exploratory data analysis
+```{r, echo=TRUE, eval=FALSE}
+# EDA
+# Correlation table
+library(corrplot)
+kidney_imputed_numeric = dplyr::select_if(kidney_imputed, is.numeric) 
+res = cor(kidney_imputed_numeric)
+corrplot(res, method = "pie", type = "upper", order = "hclust",
+         tl.col = "black", tl.srt = 45)
+
+# PCA
+pca = prcomp(kidney_imputed_numeric, center = TRUE, scale = TRUE)
+summary(pca)
+
+# MCA
+library(FactoMineR)
+library(factoextra)
+kidney_imputed_factor = dplyr::select_if(kidney_imputed, is.factor)
+res.mca = MCA(kidney_imputed_factor) # multiple correspondence analysis
+mca_plot = fviz_mca_var(res.mca, repel = TRUE, # Avoid text overlapping (slow)
+                        ggtheme = theme_minimal(), col.var = "coral")
+
+# Random Forest
+set.seed(200)
+rf = randomForest(class ~ ., data = kidney_imputed, importance = TRUE)
+varimp_plot = varImpPlot(rf,type=2)
+```
+
+## Modelling
+```{r, echo=TRUE, eval=FALSE}
+# Logistic regression
+## Split the data into training set and testing set
+kidney_imputed$class = ifelse(kidney_imputed$class == "ckd", 1, 0)
+set.seed(222)
+index = sample(nrow(kidney_imputed), 0.7*nrow(kidney_imputed))
+kidney_train = kidney_imputed[index, ]
+kidney_test = kidney_imputed[-index, ]
+
+## Fit a logistic regression model including all variables
+model_logistic = glm(class ~ ., data = kidney_train, family = 'binomial')
+## Use AIC to do the stepwise regression
+AIC_logisitc = step(model_logistic)
+summary(AIC_logisitc)
+pchisq(AIC_logisitc$deviance, df=AIC_logisitc$df.residual, lower.tail=FALSE)
+
+## Draw the ROC curve
+prob_logit0=predict(AIC_logisitc,kidney_test,type='response')
+library(pROC)
+roc_logit0=roc(response=kidney_test$class, predictor=prob_logit0)
+plot(roc_logit0, main = "ROC of logistic")
+auc(roc_logit0)
+
+## Fit another logistic regression model with hemo only
+model_logistic1 = glm(class ~ hemo, data = kidney_train, family = 'binomial')
+summary(model_logistic1)
+
+## Fit another logistic regression model with pcv only
+model_logistic2 = glm(class ~ pcv, data = kidney_train, family = 'binomial')
+summary(model_logistic2)
+
+## Make prediction with hemo model
+prob_logit1=predict(model_logistic1,kidney_test,type='response')
+## Draw the ROC curve
+library(pROC)
+roc_logit1=roc(response=kidney_test$class, predictor=prob_logit1)
+plot(roc_logit1, main="ROC curve with Hemo only")
+auc(roc_logit1)
+
+## Make prediction with pcv model
+prob_logit2=predict(model_logistic2,kidney_test,type='response')
+## Draw the ROC curve
+library(pROC)
+roc_logit2=roc(response=kidney_test$class, predictor=prob_logit2)
+plot(roc_logit2, main="ROC curve with PCV only")
+auc(roc_logit2)
+
+
+# SVM
+set.seed(222)
+train = sample(1:400, 280, replace = FALSE)
+kidney_imputed_train = kidney_imputed[train, ]
+kidney_imputed_test = kidney_imputed[-train, ]
+fit = svm(class ~ ., data = kidney_imputed_train, 
+          scale = FALSE, kernel = "radial", cost = 5)
+predict_svm = predict(fit, newdata = kidney_imputed_test)
+conf_mat_svm = table(predicted = predict_svm, actual = kidney_imputed_test$class)
+svm_matrix = confusionMatrix(conf_mat_svm)
+
+svm_data = kidney_imputed %>% mutate_each_(funs = as.numeric, 1)
+svm_data$class = svm_data$class - 1
+fit_2 = svm(class ~ ., data = svm_data[train, ], 
+            scale = FALSE, kernel = "radial", cost = 5)
+predict_svm_2 = predict(fit_2, newdata = svm_data[-train, ])
+roc_svm = roc(svm_data[-train, ]$class, predict_svm_2, plot = TRUE, col = "orange")
+auc_svm = auc(roc_svm)
+```
+
+## Cutoff optimization
+```{r, echo=TRUE, eval=FALSE}
+# Use 5-fold CV to find the best cutoff that maximize accuracy
+## Prepare the data for cross validation
+set.seed(850)
+rand_index = sample(nrow(kidney_train))
+kidney_cv = kidney_train[rand_index,]
+folds = cut(1:nrow(kidney_train),breaks=5,labels=FALSE)
+
+## A function that compute average accuracy
+logit_cut = function(c){
+  acc_logit = numeric(5)
+  for(i in 1:5){
+    test_index = which(folds==i)
+    cv_test = kidney_cv[test_index,]
+    cv_train = kidney_cv[-test_index,]
+    fit_logit = glm(class ~ age + sg + bgr + hemo + pcv + dm + appet,
+                    data = cv_train, family = 'binomial')
+    prob_logit = predict(fit_logit,newdata=cv_test,type="response")
+    pred_logit = ifelse(prob_logit > c, 1, 0)
+    conf_mat_logit = table(predicted = pred_logit, actual = cv_test$class)
+    cof_table = confusionMatrix(conf_mat_logit, positive = "1")
+    acc_logit[i] = cof_table$overall[1]
+  }
+  return (mean(acc_logit))
+}
+## Find the optimum cutoff
+cut_max=optimize(logit_cut,interval=c(0,1), maximum = T, tol = 0.00001)
+
+## Use that cutoff to make prediction
+pred_logit0=ifelse(prob_logit0>0.976, 1, 0)
+## The confusion matrix
+library(caret)
+conf_mat_logit0 = table(predicted = pred_logit0, actual = kidney_test$class)
+confusionMatrix(conf_mat_logit0, positive = "1")
+```
+
+## Decision tree
+```{r, echo=TRUE, eval=FALSE}
+# Decision tree
+library(rpart)   #Decision tree
+library(rattle)  #Fancy tree plot
+## Build a tree model and plot it
+kidney_tree0=rpart(class~.,data=kidney_imputed,method='class')
+fancyRpartPlot(kidney_tree0, sub = "Decision tree")
+```
+
+
