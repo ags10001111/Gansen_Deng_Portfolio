@@ -192,6 +192,15 @@ For the structured data, we used two dense layers with a dropout rate of 0.5: th
 
 The overall model architecture is illustrated below:
 
+<p align="center">
+  <img src="Default_Satellite/Model_Architure.png" alt="Model_Architure" width="500">
+</p>
+
+The training loss and validation loss in the training process are shown in the following figure:
+<p align="center">
+  <img src="Default_Satellite/Loss.png" alt="Loss" width="800">
+</p>
+
 ##
 
 
