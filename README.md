@@ -10,7 +10,7 @@ My academic and research experiences include:
 
 These experiences have sharpened my analytical thinking and programming proficiency in languages such as **R** and **Python**.
 
-I’m passionate about turning data into actionable knowledge and building models that support better decision-making.
+I enjoy working with data and am passionate about turning data into actionable knowledge and building models that support better decision-making.
 
 ---
 
