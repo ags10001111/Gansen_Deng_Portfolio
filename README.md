@@ -214,7 +214,7 @@ This project was based on the built-in R dataset [*Colon*](https://search.r-proj
 The details of this project are summarized in this [report](Colon_Cancer/9004_FP.pdf), and the corresponding analysis script can be found [here](Colon_Cancer/9004_FP.R).
 
 ## Fire Management Project
-The goal of this project was to optimize the resource allocation by finding distinct populations when dispatching resources to wildfires and finding the factors that influence them.
+This real-world consulting project aimed to optimize resource allocation for wildfire response by identifying distinct population groups and the factors that influence them.
 
 The details of this project are summarized in this [report](Fire_Management/Team2_Final_Report.pdf), and the corresponding analysis script can be found [here](Fire_Management/Hierarchical_Clustering.R).
 
