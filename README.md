@@ -1,12 +1,12 @@
 # 👋 Hi, I'm Gansen!
 
-I am a **PhD in Statistics**. My PhD research focused on developing statistical learning methods for self-reported data, with applications to chronic pain research. My academic journey has equipped me with a strong foundation in **statistical theory**, **machine learning**, and **data analysis**—skills I’m excited to apply to real-world challenges in industry.
+I hold a **PhD in Statistics**, where my research focused on developing statistical learning methods tailored to self-reported data, with real-world applications in chronic pain research. Through this work, I’ve built a strong foundation in **statistical theory, machine learning, data analysis**, and **data visualization**—skills I'm eager to apply to solving complex problems in industry.
 
-Throughout my research, I’ve worked on:
-- 🧠 **Clustering** and **metric learning**
-- 🏷️ **Multi-label classification**
+My academic and research experiences include:
+- 🧠 **Clustering**, **metric learning** and **active learning**
+- 🏷️ Building prediction models such as multi-label classification
 - 🔬 Simulation studies and modeling with complex error structures
-- 📊 Working with noisy, self-reported, and high-dimensional data
+- 📊 Working with noisy and high-dimensional data
 
 These experiences have sharpened my analytical thinking and programming proficiency in languages such as **R** and **Python**.
 
@@ -14,16 +14,13 @@ I’m passionate about turning data into actionable knowledge and building model
 
 ---
 
-📁 This repository is a portfolio of my:
-- Research projects
+📁 This repository showcases my:
+- Research contributions and collaborations
 - Data science explorations
-- Learning progress and tools
-- Technical skillset
+- Learning projects and technical toolkits
+- Core competencies in modeling and analysis
 
 📄 [View My CV (PDF)](CV_GansenDeng.pdf)
-
-# Table of Contents
-
 
 # Published Papers
 
@@ -204,7 +201,7 @@ The training loss and validation loss in the training process are shown in the f
 Finally, we evaluate the model's performance on the test data, obtaining an AUC of 0.7996, which indicates strong predictive power.
 
 ## Chronic Kidney Disease Detection
-The analysis of this [dataset](https://www.kidney.org/kidney-topics/chronic-kidney-disease-ckd) has two main purposes. The first one is to build a chronic kidney disease detector to help hospitals diagnose *ckd* for patients. The other one is to find out which covariate has significant relationship with *ckd* and give patients health advice to protect them from *ckd*.
+The analysis of this [dataset](https://www.kidney.org/kidney-topics/chronic-kidney-disease-ckd) has two main purposes. The first one is to build a chronic kidney disease detector to help hospitals diagnose *ckd* for patients. The other one is to find out which covariate has a significant relationship with *ckd* and give patients health advice to protect them from *ckd*.
 
 The details of this project are summarized in this [report](Kidney_Disease/SS9864_Final_Project.pdf), and the corresponding analysis script can be found [here](Kidney_Disease/9864_Final_Project.R).
 
