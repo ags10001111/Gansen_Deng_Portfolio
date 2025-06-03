@@ -7,7 +7,7 @@ In addition to academic research, I have hands-on experience as a data consultan
 My academic and research experiences include:
 - 🧠 **Clustering**, **metric learning** and **active learning**
 - 🏷️ Building prediction models such as multi-label classification
-- 🔬 Simulation studies and modeling with complex error structures
+- 🔬 Simulation studies and modeling with real-world data
 - 📊 Working with noisy and high-dimensional data
 
 These experiences have sharpened my analytical thinking and programming proficiency in languages such as **R** and **Python**.
