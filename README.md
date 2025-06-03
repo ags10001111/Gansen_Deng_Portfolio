@@ -1,6 +1,6 @@
 # 👋 Hi, I'm Gansen!
 
-I hold a **PhD in Statistics**, where my research focused on developing statistical learning methods tailored to self-reported data, with real-world applications in chronic pain research. Through this work, I’ve built a strong foundation in **statistical theory, machine learning, data analysis**, and **data visualization**—skills I'm eager to apply to solving complex problems in industry.  In addition to academic research, I have hands-on experience as a data consultant, where I advised students and faculty on machine learning methods across a range of disciplines to turn messy, real-world data into actionable insights.
+I hold a **PhD in Statistics**, where my research focused on developing statistical learning methods tailored to self-reported data, with real-world applications in chronic pain research. Through this work, I’ve built a strong foundation in **statistical theory, machine learning, data analysis**, and **data visualization**—skills I'm eager to apply to solving complex problems in industry.  In addition to academic research, I have hands-on experience as a data consultant, where I advised students and faculty on machine learning methods across a range of disciplines to turn messy, real-world data into actionable insights. This experience has equipped me with strong skills in communicating machine learning concepts to non-technical clients.
 
 My academic and research experiences include:
 - 🧠 **Clustering**, **metric learning** and **active learning**
