@@ -204,7 +204,9 @@ The training loss and validation loss in the training process are shown in the f
 Finally, we evaluate the model's performance on the test data, obtaining an AUC of 0.7996, which indicates strong predictive power.
 
 ## Chronic Kidney Disease Detection
+The analysis of this [dataset](https://www.kidney.org/kidney-topics/chronic-kidney-disease-ckd) has two main purposes. The first one is to build a chronic kidney disease detector to help hospitals diagnose *ckd* for patients. The other one is to find out which covariate has significant relationship with *ckd* and give patients health advice to protect them from *ckd*.
 
+The details of this project are summarized in this [report](Kidney_Disease/SS9864_Final_Project.pdf), and the corresponding analysis script can be found [here](Kidney_Disease/9864_Final_Project.R).
 
 
 
