@@ -216,6 +216,6 @@ The details of this project are summarized in this [report](Colon_Cancer/9004_FP
 ## Fire Management Project
 The goal of this project was to optimize the resource allocation by finding distinct populations when dispatching resources to wildfires and finding the factors that influence them.
 
-The details of this project are summarized in this [report](Kidney_Disease/SS9864_Final_Project.pdf), and the corresponding analysis script can be found [here](Kidney_Disease/9864_Final_Project.R).
+The details of this project are summarized in this [report](Fire_Management/Team2_Final_Report.pdf).
 
 
