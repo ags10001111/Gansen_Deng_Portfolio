@@ -183,7 +183,7 @@ Apply logarithmic transformations to the right-skewed predictors to reduce the i
 
 # Other Projects
 
-## Predict Default Rate using Deep Learning ([codes](Default_Satellite/Coursework_3.ipynb))
+## Predict Default Rate using Deep Learning ([codes](Default_Satellite/Coursework.ipynb))
 This project developed a multimodal deep learning model to predict credit risk using both satellite images and structured data. For the unstructured data, the ResNet152 network [He et al., 2015](https://arxiv.org/abs/1512.03385) was employed. Its output was flattened and passed through two dense layers with ReLU activation and a dropout rate of 0.5 to prevent overfitting. A final dense layer with a sigmoid activation function was used to predict the probability of default.
 
 The model was trained using the Adam optimizer with an initial learning rate of 1e-5 and a decay rate of 1e-6 at each epoch.
