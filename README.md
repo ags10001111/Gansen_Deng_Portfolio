@@ -211,7 +211,7 @@ The details of this project are summarized in this [report](Kidney_Disease/SS986
 ## Survival Analysis on Colon Cancer
 This project was based on the built-in R dataset [*Colon*](https://search.r-project.org/CRAN/refmans/biostat3/html/colon.html). In this project, we fitted both AFT model and Cox PH model to find out the important covariates that influence the recurrence time and death time of colon cancer and to see if those important covariates are the same for the two types of events. Besides, we also made inferences based on the models we fitted, to compute median survival time for some patients with given covariates. In the end, we compared different models to see which model is more appropriate for this dataset.
 
-The details of this project are summarized in this [report](Kidney_Disease/SS9864_Final_Project.pdf), and the corresponding analysis script can be found [here](Kidney_Disease/9864_Final_Project.R).
+The details of this project are summarized in this [report](Colon_Cancer/9004_FP.pdf), and the corresponding analysis script can be found [here](Colon_Cancer/9004_FP.R).
 
 
 
