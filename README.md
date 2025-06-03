@@ -201,6 +201,8 @@ The training loss and validation loss in the training process are shown in the f
   <img src="Default_Satellite/Loss.png" alt="Loss" width="800">
 </p>
 
+Finally, we evaluate the model's performance on the test data, obtaining an AUC of 0.7996, which indicates strong predictive power.
+
 ##
 
 
